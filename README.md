@@ -199,4 +199,3 @@ For questions about the app or suggestions for improvement, please open an issue
 **Viel Glück und viel Spass beim Lerne!** (Good luck and have fun learning!)
 
 🇨🇭 Made with ❤️ for Basel language learners
-
