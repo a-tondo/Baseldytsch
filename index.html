@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseldytsch - Learn Basel German</title>
+    <link rel="icon" type="image/png" href="assets/wappen_basel-stadt-150left_shop_preview.png">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h1><img src="assets/Wappen_Basel-Stadt_matt.svg.png" alt="Basel Coat of Arms" style="height: 1.5em; vertical-align: middle; margin-right: 0.3em;"> Baseldytsch</h1>
+                <p class="tagline">Master Basel German</p>
+            </div>
+            
+            <div class="progress-overview">
+                <h3>Your Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <p class="progress-text" id="progressText">0% Complete</p>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="home">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </li>
+                <li class="nav-item" data-section="lessons">
+                    <span class="nav-icon">📚</span>
+                    <span>Lessons</span>
+                </li>
+                <li class="nav-item" data-section="vocabulary">
+                    <span class="nav-icon">📖</span>
+                    <span>Vocabulary</span>
+                </li>
+                <li class="nav-item" data-section="scenarios">
+                    <span class="nav-icon">🗣️</span>
+                    <span>Practice Scenarios</span>
+                </li>
+                <li class="nav-item" data-section="culture">
+                    <span class="nav-icon">🎭</span>
+                    <span>Culture & Etiquette</span>
+                </li>
+                <li class="nav-item" data-section="pronunciation">
+                    <span class="nav-icon">🔊</span>
+                    <span>Pronunciation Lab</span>
+                </li>
+                <li class="nav-item" data-section="quiz">
+                    <span class="nav-icon">🎯</span>
+                    <span>Quiz</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <div class="hero">
+                    <h2>Welcome to Baseldytsch!</h2>
+                    <p class="subtitle">Your comprehensive guide to speaking Basel German and understanding Swiss culture</p>
+                    
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎓</div>
+                            <h3>Structured Learning</h3>
+                            <p>Progress through carefully designed lessons from basics to daily conversation</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔊</div>
+                            <h3>Audio Pronunciation</h3>
+                            <p>Listen to native pronunciation with text-to-speech for every phrase</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🏙️</div>
+                            <h3>Real-Life Scenarios</h3>
+                            <p>Practice ordering food, navigating Basel, and daily interactions</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🇨🇭</div>
+                            <h3>Cultural Insights</h3>
+                            <p>Learn Swiss etiquette and social norms to feel confident in Basel</p>
+                        </div>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="navigateToSection('lessons')">Start Learning</button>
+                        <button class="btn btn-secondary" onclick="navigateToSection('culture')">Explore Culture</button>
+                    </div>
+                </div>
+
+                <div class="quick-facts">
+                    <h3>Did you know?</h3>
+                    <ul>
+                        <li>Baseldytsch is a Low Alemannic dialect distinct from High German</li>
+                        <li>Basel is located at the tri-border area of Switzerland, Germany, and France</li>
+                        <li>The Basler Fasnacht (carnival) is Switzerland's largest and most important cultural event</li>
+                        <li>Swiss people highly value punctuality, quietness in public, and formality in greetings</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Lessons Section -->
+            <section id="lessons" class="content-section">
+                <h2>Language Lessons</h2>
+                <p class="section-intro">Master Baseldytsch step by step, with comparisons to High German</p>
+                
+                <div class="lessons-grid">
+                    <div class="lesson-card" data-lesson="1">
+                        <div class="lesson-header">
+                            <span class="lesson-number">Lesson 1</span>
+                            <span class="lesson-status">✓</span>
+                        </div>
+                        <h3>Basic Greetings & Introductions</h3>
+                        <p>Learn how to greet people and introduce yourself in Basel</p>
+                        <ul class="lesson-topics">
+                            <li>Hello, goodbye, thank you</li>
+                            <li>Introducing yourself</li>
+                            <li>Formal vs informal address</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="openLesson(1)">Start Lesson</button>
+                    </div>
+
+                    <div class="lesson-card" data-lesson="2">
+                        <div class="lesson-header">
+                            <span class="lesson-number">Lesson 2</span>
+                            <span class="lesson-status">○</span>
+                        </div>
+                        <h3>Numbers, Time & Dates</h3>
+                        <p>Essential for daily life: counting, telling time, and making appointments</p>
+                        <ul class="lesson-topics">
+                            <li>Numbers 1-100</li>
+                            <li>Days of the week and months</li>
+                            <li>Telling time</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="openLesson(2)">Start Lesson</button>
+                    </div>
+
+                    <div class="lesson-card" data-lesson="3">
+                        <div class="lesson-header">
+                            <span class="lesson-number">Lesson 3</span>
+                            <span class="lesson-status">○</span>
+                        </div>
+                        <h3>At the Restaurant</h3>
+                        <p>Order food, ask for recommendations, and handle restaurant situations</p>
+                        <ul class="lesson-topics">
+                            <li>Menu vocabulary</li>
+                            <li>Making orders</li>
+                            <li>Dietary restrictions</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="openLesson(3)">Start Lesson</button>
+                    </div>
+
+                    <div class="lesson-card" data-lesson="4">
+                        <div class="lesson-header">
+                            <span class="lesson-number">Lesson 4</span>
+                            <span class="lesson-status">○</span>
+                        </div>
+                        <h3>Navigation & Transportation</h3>
+                        <p>Get around Basel with confidence using public transport and asking for directions</p>
+                        <ul class="lesson-topics">
+                            <li>Asking for directions</li>
+                            <li>Public transport vocabulary</li>
+                            <li>Locations and landmarks</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="openLesson(4)">Start Lesson</button>
+                    </div>
+
+                    <div class="lesson-card" data-lesson="5">
+                        <div class="lesson-header">
+                            <span class="lesson-number">Lesson 5</span>
+                            <span class="lesson-status">○</span>
+                        </div>
+                        <h3>Shopping & Services</h3>
+                        <p>Navigate shops, markets, and service interactions</p>
+                        <ul class="lesson-topics">
+                            <li>Shopping vocabulary</li>
+                            <li>Prices and payment</li>
+                            <li>Making requests</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="openLesson(5)">Start Lesson</button>
+                    </div>
+
+                    <div class="lesson-card" data-lesson="6">
+                        <div class="lesson-header">
+                            <span class="lesson-number">Lesson 6</span>
+                            <span class="lesson-status">○</span>
+                        </div>
+                        <h3>Social Conversations</h3>
+                        <p>Make small talk, discuss weather, hobbies, and everyday topics</p>
+                        <ul class="lesson-topics">
+                            <li>Small talk phrases</li>
+                            <li>Weather and seasons</li>
+                            <li>Talking about hobbies</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="openLesson(6)">Start Lesson</button>
+                    </div>
+                </div>
+
+                <!-- Lesson Detail Modal -->
+                <div id="lessonModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeLessonModal()">&times;</span>
+                        <div id="lessonContent"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vocabulary Section -->
+            <section id="vocabulary" class="content-section">
+                <h2>Vocabulary Builder</h2>
+                <p class="section-intro">Build your Baseldytsch vocabulary with audio pronunciation</p>
+                
+                <div class="vocab-categories">
+                    <button class="vocab-tab active" data-category="essentials">Essentials</button>
+                    <button class="vocab-tab" data-category="food">Food & Drink</button>
+                    <button class="vocab-tab" data-category="places">Places</button>
+                    <button class="vocab-tab" data-category="transport">Transport</button>
+                    <button class="vocab-tab" data-category="time">Time & Numbers</button>
+                </div>
+
+                <div class="vocab-list" id="vocabList"></div>
+            </section>
+
+            <!-- Scenarios Section -->
+            <section id="scenarios" class="content-section">
+                <h2>Practice Scenarios</h2>
+                <p class="section-intro">Apply your knowledge in realistic Basel situations</p>
+                
+                <div class="scenarios-grid">
+                    <div class="scenario-card" onclick="openScenario('restaurant')">
+                        <div class="scenario-icon">🍽️</div>
+                        <h3>At the Restaurant</h3>
+                        <p>Practice ordering a meal at a traditional Basel restaurant</p>
+                    </div>
+                    <div class="scenario-card" onclick="openScenario('tram')">
+                        <div class="scenario-icon">🚊</div>
+                        <h3>Taking the Tram</h3>
+                        <p>Navigate Basel's public transportation system</p>
+                    </div>
+                    <div class="scenario-card" onclick="openScenario('market')">
+                        <div class="scenario-icon">🛍️</div>
+                        <h3>At the Market</h3>
+                        <p>Shop for fresh produce at the Marktplatz</p>
+                    </div>
+                    <div class="scenario-card" onclick="openScenario('meetup')">
+                        <div class="scenario-icon">☕</div>
+                        <h3>Meeting a Friend</h3>
+                        <p>Practice casual conversation over coffee</p>
+                    </div>
+                </div>
+
+                <div id="scenarioDialog" class="scenario-dialog"></div>
+            </section>
+
+            <!-- Culture Section -->
+            <section id="culture" class="content-section">
+                <h2>Swiss Culture & Etiquette</h2>
+                <p class="section-intro">Understanding the cultural context makes communication meaningful</p>
+                
+                <div class="culture-cards">
+                    <div class="culture-card">
+                        <h3>⏰ Punctuality is Sacred</h3>
+                        <p>Swiss people take punctuality very seriously. Being even 5 minutes late is considered rude. Always arrive on time or a few minutes early for meetings and social gatherings.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> If you're going to be late, call ahead and apologize.
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>🤝 Formal Greetings</h3>
+                        <p>Always use formal titles (Herr/Mr. and Frau/Mrs.) with last names unless invited to use first names. Handshakes are standard greetings in professional and initial social settings.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> Wait for the other person to suggest switching to informal "du" instead of formal "Sie."
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>🤫 Quiet Public Spaces</h3>
+                        <p>Swiss culture values peace and quiet. Keep your voice low on public transport, in restaurants, and residential areas. Quiet hours (typically 10 PM - 7 AM) are strictly observed.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> Don't make phone calls on public transport or use speakerphone in public.
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>♻️ Environmental Consciousness</h3>
+                        <p>Switzerland has strict recycling laws. Separate your waste properly, and never litter. Sunday is a day of rest - avoid making noise like doing laundry or mowing lawns.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> Learn the recycling system early - there are heavy fines for incorrect disposal.
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>🍽️ Dining Etiquette</h3>
+                        <p>Always say "En Guete!" (enjoy your meal) before eating. Keep your hands on the table (not in your lap), but elbows off. Wait for everyone to be served before starting.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> When toasting, make eye contact and say "Pröschtli!" (Cheers!)
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>🎭 Basler Fasnacht</h3>
+                        <p>Basel's carnival (Fasnacht) is the city's most important cultural event. It begins at exactly 4 AM on the Monday after Ash Wednesday with the "Morgestraich" - a magical parade in darkness.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> During Fasnacht, the city transforms. Join in the festivities and enjoy the unique atmosphere!
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>🏠 Social Invitations</h3>
+                        <p>If invited to someone's home, bring a small gift (flowers, chocolate, or wine). Remove your shoes at the entrance unless told otherwise. Thank your host with a follow-up message.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> Swiss people value privacy. Don't drop by unannounced - always call first.
+                        </div>
+                    </div>
+
+                    <div class="culture-card">
+                        <h3>💳 Payment Customs</h3>
+                        <p>Switzerland is increasingly cashless, but have some Swiss Francs handy. Tipping is not required (service is included), but rounding up is appreciated for good service.</p>
+                        <div class="tip">
+                            <strong>Tip:</strong> For excellent service, round up to the nearest 5 or 10 francs.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pronunciation Lab Section -->
+            <section id="pronunciation" class="content-section">
+                <h2>🔊 Pronunciation Lab</h2>
+                <p class="section-intro">Practice pronunciation with text-to-speech. Type any phrase and hear it in German!</p>
+                
+                <div class="pronunciation-tool">
+                    <div class="input-group">
+                        <label for="pronunciationInput">Enter text in German (High German or Baseldytsch):</label>
+                        <textarea id="pronunciationInput" rows="4" placeholder="Type German text here... For example: Grüezi mitenand! Wie gaats?"></textarea>
+                    </div>
+                    
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="speakText()">
+                            <span class="btn-icon">🔊</span> Speak
+                        </button>
+                        <button class="btn btn-secondary" onclick="stopSpeaking()">
+                            <span class="btn-icon">⏹️</span> Stop
+                        </button>
+                        <div class="speed-control">
+                            <label for="speechRate">Speed:</label>
+                            <input type="range" id="speechRate" min="0.5" max="1.5" step="0.1" value="0.9">
+                            <span id="rateValue">0.9x</span>
+                        </div>
+                    </div>
+
+                    <div class="common-phrases">
+                        <h4>Quick Practice Phrases:</h4>
+                        <div class="phrase-chips">
+                            <button class="phrase-chip" onclick="speakQuickPhrase(this)">Grüezi!</button>
+                            <button class="phrase-chip" onclick="speakQuickPhrase(this)">Wie gaats?</button>
+                            <button class="phrase-chip" onclick="speakQuickPhrase(this)">Merci vilmal!</button>
+                            <button class="phrase-chip" onclick="speakQuickPhrase(this)">Uf Widerluege!</button>
+                            <button class="phrase-chip" onclick="speakQuickPhrase(this)">Ich verstaa nit.</button>
+                            <button class="phrase-chip" onclick="speakQuickPhrase(this)">Wo isch d Toilette?</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz" class="content-section">
+                <h2>Test Your Knowledge</h2>
+                <p class="section-intro">Challenge yourself with quizzes on vocabulary, phrases, and culture</p>
+                
+                <div id="quizContainer">
+                    <div class="quiz-start">
+                        <h3>Ready to test your Baseldytsch skills?</h3>
+                        <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>🇨🇭 Made with ❤️ for Basel language learners</p>
+            <p class="footer-links">
+                <a href="https://github.com/a-tondo/Baseldytsch" target="_blank" rel="noopener noreferrer">
+                    <span class="github-icon">⭐</span> View on GitHub
+                </a>
+                <span class="separator">•</span>
+                <a href="https://github.com/a-tondo/Baseldytsch/issues" target="_blank" rel="noopener noreferrer">
+                    Suggest Changes
+                </a>
+                <span class="separator">•</span>
+                <a href="https://github.com/a-tondo/Baseldytsch/blob/main/README.md" target="_blank" rel="noopener noreferrer">
+                    Contribute
+                </a>
+            </p>
+            <p class="footer-note">Open source • Community driven • Free forever</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
