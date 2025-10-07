@@ -45,11 +45,3 @@ yarn-error.log*
 
 # Font source files (working fonts are in fonts/ directory)
 AdobeClean/
-
-# ML stuff
-BASEL_GUIDE.md
-FEATURES.md
-CHEATSHEET.md
-PROJECT_SUMMARY.md
-QUICKSTART.md
-CONTRIBUTING.md
