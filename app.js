@@ -7,6 +7,8 @@ let quizScore = 0;
 let currentQuizQuestion = 0;
 let speechSynthesis = window.speechSynthesis;
 let currentUtterance = null;
+let selectedVoice = null;
+let availableVoices = [];
 
 // Initialize app on load
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeVocabulary();
     updateProgress();
     loadProgress();
+    initializeMobileMenu();
     
     // Initialize speech rate display
     const speechRateInput = document.getElementById('speechRate');
@@ -22,7 +25,76 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('rateValue').textContent = this.value + 'x';
         });
     }
+    
+    // Initialize voices
+    loadVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+    }
 });
+
+// Mobile Menu
+function initializeMobileMenu() {
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (!menuToggle || !sidebar) return;
+    
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-overlay';
+    overlay.id = 'mobileOverlay';
+    document.body.appendChild(overlay);
+    
+    // Toggle menu
+    menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMobileMenu();
+    });
+    
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', function() {
+        closeMobileMenu();
+    });
+    
+    // Close menu when clicking on nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                closeMobileMenu();
+            }
+        });
+    });
+}
+
+function toggleMobileMenu() {
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobileOverlay');
+    
+    menuToggle.classList.toggle('active');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (sidebar.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+function closeMobileMenu() {
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobileOverlay');
+    
+    menuToggle.classList.remove('active');
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
 
 // Navigation
 function initializeNavigation() {
@@ -186,6 +258,65 @@ function closeScenario() {
     scenarioDialog.classList.remove('active');
 }
 
+// Voice Management
+function loadVoices() {
+    availableVoices = speechSynthesis.getVoices();
+    
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) return;
+    
+    // Clear existing options
+    voiceSelect.innerHTML = '';
+    
+    // Filter for German/Swiss voices
+    const germanVoices = availableVoices.filter(voice => 
+        voice.lang.includes('de-CH') || voice.lang.includes('de-DE') || voice.lang.includes('de')
+    );
+    
+    // Add voices to dropdown
+    if (germanVoices.length > 0) {
+        germanVoices.forEach((voice, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = `${voice.name} (${voice.lang})`;
+            if (voice.lang.includes('de-CH')) {
+                option.textContent += ' 🇨🇭';
+            }
+            voiceSelect.appendChild(option);
+        });
+        
+        // Select Swiss voice by default if available
+        const swissIndex = germanVoices.findIndex(v => v.lang.includes('de-CH'));
+        if (swissIndex !== -1) {
+            voiceSelect.selectedIndex = swissIndex;
+            selectedVoice = germanVoices[swissIndex];
+        } else {
+            selectedVoice = germanVoices[0];
+        }
+    } else {
+        // No German voices, use all voices
+        availableVoices.forEach((voice, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = `${voice.name} (${voice.lang})`;
+            voiceSelect.appendChild(option);
+        });
+        selectedVoice = availableVoices[0];
+    }
+}
+
+function updateVoice() {
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!voiceSelect) return;
+    
+    const germanVoices = availableVoices.filter(voice => 
+        voice.lang.includes('de-CH') || voice.lang.includes('de-DE') || voice.lang.includes('de')
+    );
+    
+    const voiceList = germanVoices.length > 0 ? germanVoices : availableVoices;
+    selectedVoice = voiceList[voiceSelect.selectedIndex];
+}
+
 // Text-to-Speech Functions
 function speakPhrase(text) {
     stopSpeaking(); // Stop any ongoing speech
@@ -196,9 +327,24 @@ function speakPhrase(text) {
     }
     
     currentUtterance = new SpeechSynthesisUtterance(text);
-    currentUtterance.lang = 'de-DE'; // German
+    currentUtterance.lang = 'de-CH'; // Swiss German
     currentUtterance.rate = 0.85; // Slightly slower for learning
     currentUtterance.pitch = 1.0;
+    
+    // Use selected voice if available
+    if (selectedVoice) {
+        currentUtterance.voice = selectedVoice;
+    } else {
+        // Fallback: Try to find a Swiss or German voice
+        const voices = speechSynthesis.getVoices();
+        const swissVoice = voices.find(voice => voice.lang.includes('de-CH')) || 
+                           voices.find(voice => voice.lang.includes('de-DE')) ||
+                           voices.find(voice => voice.lang.includes('de'));
+        
+        if (swissVoice) {
+            currentUtterance.voice = swissVoice;
+        }
+    }
     
     speechSynthesis.speak(currentUtterance);
 }
@@ -215,9 +361,24 @@ function speakText() {
     const rate = parseFloat(document.getElementById('speechRate').value);
     
     currentUtterance = new SpeechSynthesisUtterance(text);
-    currentUtterance.lang = 'de-DE';
+    currentUtterance.lang = 'de-CH'; // Swiss German
     currentUtterance.rate = rate;
     currentUtterance.pitch = 1.0;
+    
+    // Use selected voice if available
+    if (selectedVoice) {
+        currentUtterance.voice = selectedVoice;
+    } else {
+        // Fallback: Try to find a Swiss or German voice
+        const voices = speechSynthesis.getVoices();
+        const swissVoice = voices.find(voice => voice.lang.includes('de-CH')) || 
+                           voices.find(voice => voice.lang.includes('de-DE')) ||
+                           voices.find(voice => voice.lang.includes('de'));
+        
+        if (swissVoice) {
+            currentUtterance.voice = swissVoice;
+        }
+    }
     
     speechSynthesis.speak(currentUtterance);
 }
@@ -407,9 +568,10 @@ window.onclick = function(event) {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(event) {
-    // ESC to close modal
+    // ESC to close modal or mobile menu
     if (event.key === 'Escape') {
         closeLessonModal();
+        closeMobileMenu();
     }
 });
 

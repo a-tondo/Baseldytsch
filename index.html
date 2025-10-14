@@ -9,9 +9,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <div class="app-container">
         <!-- Sidebar Navigation -->
-        <nav class="sidebar">
+        <nav class="sidebar" id="sidebar">
             <div class="logo">
                 <h1><img src="assets/Wappen_Basel-Stadt_matt.svg.png" alt="Basel Coat of Arms" style="height: 1.5em; vertical-align: middle; margin-right: 0.3em;"> Baseldytsch</h1>
                 <p class="tagline">Master Basel German</p>
@@ -66,22 +73,22 @@
                     <p class="subtitle">Your comprehensive guide to speaking Basel German and understanding Swiss culture</p>
                     
                     <div class="feature-cards">
-                        <div class="feature-card">
+                        <div class="feature-card" onclick="navigateToSection('lessons')" role="button" tabindex="0" onkeypress="if(event.key==='Enter') navigateToSection('lessons')">
                             <div class="feature-icon">🎓</div>
                             <h3>Structured Learning</h3>
                             <p>Progress through carefully designed lessons from basics to daily conversation</p>
                         </div>
-                        <div class="feature-card">
+                        <div class="feature-card" onclick="navigateToSection('pronunciation')" role="button" tabindex="0" onkeypress="if(event.key==='Enter') navigateToSection('pronunciation')">
                             <div class="feature-icon">🔊</div>
                             <h3>Audio Pronunciation</h3>
                             <p>Listen to native pronunciation with text-to-speech for every phrase</p>
                         </div>
-                        <div class="feature-card">
+                        <div class="feature-card" onclick="navigateToSection('scenarios')" role="button" tabindex="0" onkeypress="if(event.key==='Enter') navigateToSection('scenarios')">
                             <div class="feature-icon">🏙️</div>
                             <h3>Real-Life Scenarios</h3>
                             <p>Practice ordering food, navigating Basel, and daily interactions</p>
                         </div>
-                        <div class="feature-card">
+                        <div class="feature-card" onclick="navigateToSection('culture')" role="button" tabindex="0" onkeypress="if(event.key==='Enter') navigateToSection('culture')">
                             <div class="feature-icon">🇨🇭</div>
                             <h3>Cultural Insights</h3>
                             <p>Learn Swiss etiquette and social norms to feel confident in Basel</p>
@@ -352,6 +359,10 @@
                             <label for="speechRate">Speed:</label>
                             <input type="range" id="speechRate" min="0.5" max="1.5" step="0.1" value="0.9">
                             <span id="rateValue">0.9x</span>
+                        </div>
+                        <div class="voice-control">
+                            <label for="voiceSelect">Voice:</label>
+                            <select id="voiceSelect" onchange="updateVoice()"></select>
                         </div>
                     </div>
 

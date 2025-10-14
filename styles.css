@@ -128,6 +128,7 @@ body {
     flex: 1;
     padding: 3rem;
     max-width: 1400px;
+    min-height: calc(100vh - 100px);
 }
 
 .content-section {
@@ -183,12 +184,20 @@ body {
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
 }
 
 .feature-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: var(--primary-color);
+}
+
+.feature-card:active {
+    transform: translateY(-2px);
 }
 
 .feature-icon {
@@ -697,7 +706,7 @@ body {
     flex-wrap: wrap;
 }
 
-.speed-control {
+.speed-control, .voice-control {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -711,6 +720,22 @@ body {
     min-width: 40px;
     font-weight: 600;
     color: var(--primary-color);
+}
+
+.voice-control select {
+    padding: 0.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.875rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.voice-control select:focus {
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 .common-phrases h4 {
@@ -824,32 +849,133 @@ body {
     font-size: 1.25rem;
 }
 
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    background: var(--primary-color);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(2px);
+}
+
+.mobile-overlay.active {
+    display: block;
+}
+
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 2rem;
+    }
+    
+    .app-footer {
+        padding: 1.5rem 2rem;
+    }
+    
+    .feature-cards,
+    .lessons-grid,
+    .scenarios-grid,
+    .culture-cards {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
     .sidebar {
-        width: 100%;
-        position: relative;
-        height: auto;
+        position: fixed;
+        left: -280px;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+    
+    .sidebar.active {
+        left: 0;
     }
 
     .main-content {
         margin-left: 0;
-        padding: 1.5rem;
+        padding: 5rem 1.5rem 0;
+        width: 100%;
     }
 
     .hero h2 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
     }
 
     .feature-cards,
     .lessons-grid,
     .scenarios-grid,
-    .culture-cards {
+    .culture-cards,
+    .vocab-list {
         grid-template-columns: 1fr;
     }
 
     .cta-buttons {
         flex-direction: column;
+        width: 100%;
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+        justify-content: center;
     }
 
     .controls {
@@ -857,29 +983,236 @@ body {
         align-items: stretch;
     }
     
+    .speed-control,
+    .voice-control {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .speed-control input[type="range"] {
+        flex: 1;
+        max-width: none;
+    }
+    
+    .voice-control select {
+        flex: 1;
+    }
+    
     .app-footer {
-        left: 0;
-        padding: 1rem 1.5rem;
+        margin-left: 0;
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     
     .footer-content {
         flex-direction: column;
         gap: 0.5rem;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .footer-content span,
+    .footer-content a {
+        display: block;
+        width: 100%;
+    }
+    
+    .separator {
+        display: none;
+    }
+    
+    /* Make cards more touch-friendly */
+    .feature-card,
+    .lesson-card,
+    .culture-card,
+    .scenario-card,
+    .vocab-card {
+        padding: 1.5rem;
+    }
+    
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.05rem;
+        min-height: 48px;
+    }
+    
+    .speak-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-item {
+        padding: 1.125rem 1.5rem;
+        font-size: 1.05rem;
+    }
+    
+    .nav-icon {
+        font-size: 1.5rem;
+    }
+    
+    /* Modal improvements */
+    .modal-content {
+        margin: 2rem auto;
+        padding: 1.5rem;
+        max-width: calc(100% - 2rem);
+        max-height: calc(100vh - 4rem);
+    }
+    
+    .close {
+        right: 1rem;
+        top: 1rem;
+        font-size: 2.5rem;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Phrase items */
+    .phrase-item {
+        padding: 1rem;
+    }
+    
+    .phrase-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .phrase-header .speak-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .phrase-baseldytsch {
+        font-size: 1.125rem;
+    }
+    
+    /* Vocab categories */
+    .vocab-categories {
+        flex-wrap: wrap;
+    }
+    
+    .vocab-tab {
+        flex: 1;
+        min-width: calc(50% - 0.25rem);
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 0.875rem 1rem;
+    }
+    
+    /* Scenario dialog */
+    .dialog-message {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .dialog-message .speak-btn {
+        width: 100%;
+    }
+    
+    /* Quiz */
+    .option-btn {
+        padding: 1.125rem;
+        font-size: 1.05rem;
+    }
+    
+    /* Common phrases */
+    .phrase-chip {
+        padding: 0.75rem 1.125rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+    
+    /* Logo */
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .logo img {
+        height: 1.25em !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 5rem 1rem 0;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .feature-icon,
+    .scenario-icon {
+        font-size: 2.5rem;
+    }
+    
+    .feature-card h3,
+    .lesson-card h3,
+    .culture-card h3,
+    .scenario-card h3 {
+        font-size: 1.125rem;
+    }
+    
+    .btn {
+        padding: 0.875rem 1.5rem;
+    }
+    
+    .vocab-tab {
+        min-width: 100%;
+        flex: 1 1 100%;
+    }
+    
+    .phrase-chips {
+        flex-direction: column;
+    }
+    
+    .phrase-chip {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .quiz-score {
+        font-size: 2.5rem;
+    }
+    
+    .app-footer {
+        padding: 1.25rem 1rem;
+        font-size: 0.8rem;
+        margin-top: 1.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .footer-content span,
+    .footer-content a {
+        justify-content: center;
+    }
+    
+    .footer-note {
+        font-size: 0.7rem !important;
     }
 }
 
 /* Footer Styles */
 .app-footer {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 280px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
-    backdrop-filter: blur(10px);
-    border-top: 1px solid var(--border-color);
-    padding: 1rem 3rem;
-    z-index: 100;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    margin-left: 280px;
+    background: var(--card-bg);
+    border-top: 2px solid var(--border-color);
+    padding: 1.5rem 3rem;
+    margin-top: 3rem;
 }
 
 .footer-content {
